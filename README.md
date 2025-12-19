@@ -1,4 +1,4 @@
-Aathman MTM
+##Aathman MTM
 
 Model Trust Manifest (MTM) is a lightweight, human-readable declaration that describes what a machine-learning model is intended to be used for, and under what constraints. It complements Aathman Core and Aathman PaCM by adding declared intent to verified identity and enforced policy.
 
@@ -6,7 +6,7 @@ MTM does not verify models.
 MTM does not enforce policy.
 MTM declares intent and constraints.
 
-Why MTM Exists
+##Why MTM Exists
 
 Modern ML governance requires more than integrity checks and permission rules. Models also need clearly stated intent.
 
@@ -21,7 +21,7 @@ MTM answers:
 
 Together, they form a complete governance triangle: identity, intent, and permission.
 
-What MTM Is
+##What MTM Is
 
 MTM is a small YAML file that travels with a model artifact.
 It declares intended use, prohibited use, and operational constraints in clear language.
@@ -38,7 +38,7 @@ independent of enforcement
 
 What MTM Is Not
 
-MTM is not:
+##MTM is not:
 
 a security mechanism
 
@@ -52,13 +52,14 @@ an attestation log
 
 MTM does not make trust decisions. Other systems consume it.
 
-MTM File Placement
+##MTM File Placement
 
 An MTM file is stored alongside the model and its certificate.
 
 Typical layout:
 
 model/
+
 ├── model.pth
 
 ├── model.pth.aathman.json
@@ -67,12 +68,12 @@ model/
 
 This keeps identity, intent, and policy inputs visible and reviewable.
 
-Schema
+##Schema
 
 MTM v0.1 is defined in schema.yaml.
 The schema specifies required fields, optional constraints, and validation rules.
 
-The schema is:
+##The schema is:
 
 versioned
 
@@ -82,21 +83,21 @@ intentionally minimal
 
 Semantic meaning is left to policy and human review.
 
-Validator
+##Validator
 
 This repository includes a minimal structural validator.
 
-Usage:
+##Usage:
 
 python validator.py model.mtm.yaml
 
-Results:
+##Results:
 
 VALID → exit code 0
 
 INVALID → exit code 1, with an error message
 
-The validator checks:
+##The validator checks:
 
 required fields
 
@@ -108,7 +109,7 @@ allowed constraint keys
 
 It does not verify fingerprints or enforce policy.
 
-Relationship to Aathman Core and PaCM
+##Relationship to Aathman Core and PaCM
 
 Aathman Core verifies model authenticity.
 PaCM enforces organizational policy.
@@ -118,7 +119,7 @@ MTM is optional but powerful.
 If MTM conflicts with policy, policy wins.
 If MTM is missing, enforcement behavior is defined by PaCM.
 
-Repository Contents
+##Repository Contents
 
 validator.py — minimal MTM structural validator
 
@@ -132,17 +133,17 @@ LICENSE — Apache License 2.0
 
 CLA.md — Contributor License Agreement
 
-Status
+##Status
 
 MTM v0.1 is complete and intentionally minimal.
 It is designed to support governance discussions, audits, and policy enforcement without coupling or overreach.
 
-License
+##License
 
 This project is licensed under the Apache License 2.0.
 See LICENSE for details.
 
-Contributing
+##Contributing
 
 All contributions require signing the Contributor License Agreement (CLA).
 See CLA.md before submitting changes.
