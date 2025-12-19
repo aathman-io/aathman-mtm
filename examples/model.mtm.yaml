@@ -1,0 +1,27 @@
+mtm_version: mtm-v0.1
+
+model_name: "Linear Classifier v1"
+model_description: "A simple linear model used for internal experimentation and validation."
+
+aathman_fingerprint: "REPLACE_WITH_REAL_AATHMAN_FINGERPRINT"
+
+intended_use: "Binary classification for internal research experiments."
+allowed_domains:
+  - research
+  - internal-analysis
+
+prohibited_uses:
+  - production-deployment
+  - automated-decision-making
+  - user-facing-inference
+
+deployment_constraints:
+  offline_only: true
+  no_user_facing_output: true
+  requires_human_review: true
+
+owner: "Aathman Research"
+contact: "research@aathman.io"
+
+created_at: "2025-01-12T10:30:00Z"
+updated_at: "2025-01-12T10:30:00Z"
