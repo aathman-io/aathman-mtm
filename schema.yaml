@@ -1,79 +1,79 @@
-schema:
-  name: Model Trust Manifest
-  version: mtm-v0.1
+schema_name: Model Trust Manifest
+schema_version: mtm-v0.1
 
 required_fields:
+  - mtm_version
+  - model_name
+  - model_description
+  - aathman_fingerprint
+  - intended_use
+  - allowed_domains
+  - prohibited_uses
+  - owner
+  - contact
+  - created_at
+  - updated_at
+
+field_definitions:
   mtm_version:
     type: string
-    description: Fixed schema identifier. Must be "mtm-v0.1".
+    description: Must be "mtm-v0.1"
 
   model_name:
     type: string
-    description: Human-readable name of the model.
+    description: Human-readable model name
 
   model_description:
     type: string
-    description: Short paragraph describing what the model is.
+    description: Short description of the model
 
   aathman_fingerprint:
     type: string
-    description: Hex-encoded fingerprint copied from the Aathman certificate.
+    description: Hex fingerprint from Aathman Core
 
   intended_use:
     type: string
-    description: Plain-language description of what the model is intended to do.
+    description: Declared intended usage
 
   allowed_domains:
-    type: list[string]
-    description: Contexts where the model may be used.
+    type: list
+    description: Allowed deployment contexts
 
   prohibited_uses:
-    type: list[string]
-    description: Explicitly disallowed uses of the model.
+    type: list
+    description: Explicitly forbidden uses
 
   owner:
     type: string
-    description: Team or organization responsible for the model.
+    description: Responsible organization or team
 
   contact:
     type: string
-    description: Contact information for accountability.
+    description: Contact information for accountability
 
   created_at:
     type: string
-    format: iso8601
-    description: Timestamp when the manifest was created.
+    description: ISO8601 timestamp
 
   updated_at:
     type: string
-    format: iso8601
-    description: Timestamp when the manifest was last updated.
+    description: ISO8601 timestamp
 
 optional_fields:
   deployment_constraints:
-    type: mapping
-    description: Operational constraints declared by the model owner.
-    allowed_keys:
-      offline_only:
-        type: boolean
-        description: Model must not be used in networked environments.
-      no_user_facing_output:
-        type: boolean
-        description: Model must not produce direct user-facing outputs.
-      requires_human_review:
-        type: boolean
-        description: Model outputs must be reviewed by a human before use.
+    offline_only:
+      type: boolean
+    no_user_facing_output:
+      type: boolean
+    requires_human_review:
+      type: boolean
 
 validation_rules:
-  - All required fields must be present.
-  - Field types must match exactly.
-  - No unknown top-level fields are allowed.
-  - If deployment_constraints is present, only allowed keys may be used.
-  - updated_at must not be earlier than created_at.
-  - No semantic validation is performed.
+  - updated_at must not be earlier than created_at
+  - No unknown top-level fields allowed
+  - deployment_constraints keys must be whitelisted
 
 non_goals:
-  - This schema does not verify fingerprints.
-  - This schema does not enforce policy.
-  - This schema does not assess safety or performance.
-  - This schema does not make trust decisions.
+  - Does not verify fingerprints
+  - Does not enforce policy
+  - Does not assess safety or performance
