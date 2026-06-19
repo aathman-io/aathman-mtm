@@ -1,9 +1,3 @@
-"""
-MTM — Model Trust Manifest Validator
-
-Validates and enforces declared model intent at load time.
-"""
-
 import yaml
 from datetime import datetime
 from typing import Dict
@@ -12,9 +6,6 @@ from errors import TrustViolationError
 
 
 def load_mtm(mtm_path: str) -> Dict:
-    """
-    Load and validate an MTM YAML file.
-    """
 
     try:
         with open(mtm_path, "r", encoding="utf-8") as f:
@@ -25,7 +16,6 @@ def load_mtm(mtm_path: str) -> Dict:
     if not isinstance(mtm, dict):
         raise TrustViolationError("mtm_validation", "MTM must be a YAML mapping")
 
-    # ---- required fields ----
     required_fields = [
         "mtm_version",
         "model_name",
@@ -47,14 +37,12 @@ def load_mtm(mtm_path: str) -> Dict:
                 f"Missing required MTM field: {field}",
             )
 
-    # ---- version ----
     if mtm["mtm_version"] != "mtm-v0.1":
         raise TrustViolationError(
             "mtm_validation",
             "Unsupported MTM version",
         )
 
-    # ---- timestamps ----
     try:
         created = datetime.fromisoformat(mtm["created_at"].replace("Z", "+00:00"))
         updated = datetime.fromisoformat(mtm["updated_at"].replace("Z", "+00:00"))
@@ -70,7 +58,6 @@ def load_mtm(mtm_path: str) -> Dict:
             "updated_at cannot be earlier than created_at",
         )
 
-    # ---- lists ----
     if not isinstance(mtm["allowed_domains"], list):
         raise TrustViolationError(
             "mtm_validation",
@@ -83,7 +70,6 @@ def load_mtm(mtm_path: str) -> Dict:
             "prohibited_uses must be a list",
         )
 
-    # ---- unknown top-level fields ----
     allowed_top_level = set(required_fields) | {"deployment_constraints"}
     for key in mtm.keys():
         if key not in allowed_top_level:
@@ -96,9 +82,6 @@ def load_mtm(mtm_path: str) -> Dict:
 
 
 def enforce_deployment_constraints(mtm: Dict):
-    """
-    Enforce declared deployment constraints.
-    """
 
     constraints = mtm.get("deployment_constraints")
     if constraints is None:
@@ -134,9 +117,6 @@ def enforce_deployment_constraints(mtm: Dict):
 
 
 def load_and_enforce_mtm(mtm_path: str):
-    """
-    Public API used by aathman-loader.
-    """
 
     mtm = load_mtm(mtm_path)
     enforce_deployment_constraints(mtm)
