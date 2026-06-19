@@ -142,8 +142,3 @@ It is designed to support governance discussions, audits, and policy enforcement
 
 This project is licensed under the Apache License 2.0.
 See LICENSE for details.
-
-## Contributing
-
-All contributions require signing the Contributor License Agreement (CLA).
-See CLA.md before submitting changes.
